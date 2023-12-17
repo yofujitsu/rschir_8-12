@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  nginx:
+    image: nginx
+    container_name: nginx_pr8
+    volumes:
+      - ./index.html:/etc/nginx/html
+      - ./nginx-conf/nginx.conf:/etc/nginx/conf.d/app.conf
+    ports:
+      - "8080:80"
+    networks:
+      - mynetwork
+
+  go-service:
+    build: ./
+    container_name: go-service
+    ports:
+      - "3000:3000"
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
